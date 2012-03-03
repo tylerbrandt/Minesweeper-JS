@@ -1,0 +1,137 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+table {
+	border-spacing: 0;
+}
+
+td {
+	cursor: pointer;
+	border: 1px solid black;
+	border-collapse: collapse;
+	background-size: 100%;
+}
+
+td.mine {
+	/* http://commons.wikimedia.org/wiki/File:Gnome-gnomine.png */
+	background-image: url('img/mine.png');
+}
+
+td.mine.error {
+	
+	background-image: url("img/mine-bad.png");
+}
+
+td.flagged {
+	background-color: blue;
+}
+
+#flagbox {
+	/* border: 1px solid black; */
+	width: 100px;
+}
+
+.flag {
+	/* http://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg */
+	background-image: url('img/flag.png');
+	background-size: 100%;
+	/* float: left;
+	cursor: pointer; */
+}
+
+#message {
+	color: green;
+	font-weight: bold;
+	text-align: center;
+	
+}
+
+#messagebox {
+	position: absolute;
+	width: 100%;
+	font-size: 64pt;
+	height: 2em;
+	bottom: 0;
+	background-color: rgba(255,238,204,0.5);
+}
+
+#message.bad {
+	color:red;
+}
+
+#options {
+	display:none;
+}
+
+#actions {
+	width:100%;
+}
+
+#actions button {
+	background-color: white;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	float:right;
+	cursor: pointer;
+}
+
+#new_game {
+	/* http://www.productivedreams.com/20-semi-transparent-glossy-icons */
+	background-image: url("img/refresh.png");
+	
+}
+
+#verify {
+	background-image: url("img/tick.png");
+}
+
+#flagmode {
+	background-image: url("img/flag.png");
+	border: 4px solid white;
+}
+
+#flagmode.on {
+	border-color: red;
+}
+
+#reveal_all {
+	font-size: 24pt;
+}
+
+#settings {
+	background-image: url("img/settings.png");
+}
+
+#mine_display {
+	position:absolute;
+	left:0;
+}
+
+#mine_display div {
+	position:relative;
+}
+
+#mine_icon {
+	background-image: url("img/mine.png");
+	background-size: 100%;
+	left:0;
+}
+
+#remainingMines {
+	right:0;
+	font-weight: bold;
+}
+
+#options {
+	width: 100%;
+	height: 64px;
+	background-color: rgba(255,238,204,0.5);
+	font-size: 24pt;
+}
+
+#options select, #options input {
+	height: 60px;
+}
