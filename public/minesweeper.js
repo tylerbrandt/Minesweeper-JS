@@ -413,10 +413,9 @@ function MinesweeperBoard(context) {
 		board.init();
 	});
 	$("#numMines",context).change(function() {
-		
 		var maxMines = Math.floor(Math.pow($("#boardsize").val(),2) / 2);
 		
-		if($(this).val() > maxMines) {
+		if($(this).val() < 1 || $(this).val() > maxMines) {
 			alert("Please select a number between 1 and " + maxMines);
 			$(this).val(board.numMines);
 		} else {
