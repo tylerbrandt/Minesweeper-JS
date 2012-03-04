@@ -7,9 +7,6 @@
 		
 	</head>
 	<body>
-		<div id="messagebox">
-			<h2 id="message">Message</h2>
-		</div>
 		<div id="options">
 			<label for="boardsize">Board Size:</label>
 			<select id="boardsize">
@@ -18,21 +15,25 @@
 				<option value="32">32x32</option>
 			</select>
 			<label for="numMines"># Mines:</label>
-			<input id="numMines" type="number" min="1" max="64" value="8">
+			<input id="numMines" type="number" min="1" max="64" value="10">
 		</div>
-		<div id="actions">
-			<button id="new_game"></button>
-			<button id="verify"></button>
-			<button id="flagmode"></button>
-			<button id="reveal_all">Cheat!</button>
-			<button id="settings"></button>
-			<div id="mine_display">
-				<div id="mine_icon"></div>
-				<div id="remainingMines"></div>
-			</div>	
+		<div id="container">
+			<div id="actions">
+				<button id="new_game">New Game</button>
+				<button id="verify">Validate</button>
+				<button id="flagmode">Flag Mode</button>
+				<button id="reveal_all">Cheat</button>
+				<button id="settings">Settings</button>
+				<div id="mine_display">
+					<div id="mine_icon"></div>
+					<div id="remainingMines"></div>
+				</div>	
+			</div>
+			<table id="board"></table>
+			<div id="messagebox">
+				<h2 id="message">Message</h2>
+			</div>
 		</div>
-		<table id="board"></table>
-		
 		<script src="minesweeper.js"></script>
 	</body>
 </html>

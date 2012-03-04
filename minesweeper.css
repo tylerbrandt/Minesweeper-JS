@@ -38,8 +38,6 @@ td.flagged {
 	/* http://commons.wikimedia.org/wiki/File:Minesweeper_flag.svg */
 	background-image: url('img/flag.png');
 	background-size: 100%;
-	/* float: left;
-	cursor: pointer; */
 }
 
 #message {
@@ -52,7 +50,6 @@ td.flagged {
 #messagebox {
 	position: absolute;
 	width: 100%;
-	font-size: 64pt;
 	height: 2em;
 	bottom: 0;
 	background-color: rgba(255,238,204,0.5);
@@ -68,6 +65,7 @@ td.flagged {
 
 #actions {
 	width:100%;
+	/* height: 164px; */
 }
 
 #actions button {
@@ -76,6 +74,8 @@ td.flagged {
 	background-size: 100%;
 	float:right;
 	cursor: pointer;
+	
+	margin: 2px;
 }
 
 #new_game {
@@ -88,21 +88,24 @@ td.flagged {
 	background-image: url("img/tick.png");
 }
 
-#flagmode {
+#actions #flagmode {
 	background-image: url("img/flag.png");
-	border: 4px solid white;
+	background-size: 100%;
 }
 
-#flagmode.on {
+#actions #flagmode.on {
 	border-color: red;
 }
 
 #reveal_all {
-	font-size: 24pt;
+	/* The cheat! */
+	/* http://www.softicons.com/free-icons/tv-movie-icons/homestar-runner-icons-by-rich-d/the-cheat-icon */
+	background-image: url("img/cheat.png");
 }
 
 #settings {
-	background-image: url("img/settings.png");
+	/* http://www.veryicon.com/icons/system/pleasant/settings-14.html */
+	background-image: url("img/gears.png");
 }
 
 #mine_display {
@@ -117,6 +120,7 @@ td.flagged {
 #mine_icon {
 	background-image: url("img/mine.png");
 	background-size: 100%;
+	background-repeat: no-repeat;
 	left:0;
 }
 
@@ -127,11 +131,106 @@ td.flagged {
 
 #options {
 	width: 100%;
-	height: 64px;
+	/* height: 64px; */
 	background-color: rgba(255,238,204,0.5);
-	font-size: 24pt;
+	/* font-size: 24pt; */
 }
 
-#options select, #options input {
-	height: 60px;
+/* Mobile (tested on iPhone/iPad) */
+@media screen and (max-device-width: 1024px) {
+	#messagebox {
+		font-size: 64pt;
+	}
+
+	#actions {
+		height: 164px;
+	}
+
+	#actions button {
+		padding-top: 120px;
+		font-size: 12pt;
+		border: 4px solid #CCCCCC;
+		border-radius: 8px;
+	}
+
+	#actions #flagmode {
+		padding-top: 118px;
+	}
+
+	#remainingMines {
+		left: 130px;
+		top: -130px;
+		font-size: 60pt;
+	}
+
+	#actions button, #mine_icon, #remainingMines {
+		width: 120px;
+		height: 160px;
+	}
+
+	#mine_display {
+		width: 98px;
+		height: 48px;
+	}
+
+	#options {
+		height: 64px;
+		font-size: 24pt;
+	}
+
+	#options select, #options input {
+		font-size: 24pt;
+	}
 }
+
+/* Desktop */
+@media screen and (min-device-width: 1024px) {
+	#messagebox {
+		font-size: 24pt;
+	}
+
+	#actions {
+		height: 84px;
+	}
+
+	#actions button {
+		padding-top: 32px;
+		font-size: 8pt;
+		border: 2px solid #CCCCCC;
+		border-radius: 4px;
+	}
+
+	#actions #flagmode {
+		padding-top: 38px;
+	}
+
+	#remainingMines {
+		left: 50px;
+		top: -70px;
+		font-size: 24pt;
+	}
+
+	#actions button, #mine_icon, #remainingMines {
+		width: 48px;
+		height: 80px;
+	}
+
+	#mine_display {
+		width: 32px;
+		height: 64px;
+	}
+
+	#options {
+		height: 24px;
+		font-size: 12pt;
+	}
+
+	#options select, #options input {
+		font-size: 12pt;
+	}
+
+	#container {
+		max-width: 600px;
+	}
+}
+

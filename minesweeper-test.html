@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Minesweeper Tests</title>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="minesweeper.js"></script>
+	</head>
+	<body>
+		<h1 id="qunit-header">QUnit example</h1>
+ 		<h2 id="qunit-banner"></h2>
+ 		<div id="qunit-testrunner-toolbar"></div>
+ 		<h2 id="qunit-userAgent"></h2>
+ 		<ol id="qunit-tests"></ol>
+ 		<div id="qunit-fixture">
+ 			<div id="fixture8">
+	 			<div id="options">
+					<label for="boardsize">Board Size:</label>
+					<select id="boardsize">
+						<option value="8" selected="true">8x8</option>
+						<option value="16">16x16</option>
+						<option value="32">32x32</option>
+					</select>
+					<label for="numMines"># Mines:</label>
+					<input id="numMines" type="number" min="1" max="64" value="10">
+				</div>
+				<div id="container">
+					<div id="actions">
+						<button id="new_game">New Game</button>
+						<button id="verify">Validate</button>
+						<button id="flagmode">Flag Mode</button>
+						<button id="reveal_all">Cheat</button>
+						<button id="settings">Settings</button>
+						<div id="mine_display">
+							<div id="mine_icon"></div>
+							<div id="remainingMines"></div>
+						</div>	
+					</div>
+					<table id="board"></table>
+					<div id="messagebox">
+						<h2 id="message">Message</h2>
+					</div>
+				</div>
+			</div>
+			<div id="fixture16">
+	 			<div id="options">
+					<label for="boardsize">Board Size:</label>
+					<select id="boardsize">
+						<option value="8">8x8</option>
+						<option value="16" selected="true">16x16</option>
+						<option value="32">32x32</option>
+					</select>
+					<label for="numMines"># Mines:</label>
+					<input id="numMines" type="number" min="1" max="64" value="32">
+				</div>
+				<div id="container">
+					<div id="actions">
+						<button id="new_game">New Game</button>
+						<button id="verify">Validate</button>
+						<button id="flagmode">Flag Mode</button>
+						<button id="reveal_all">Cheat</button>
+						<button id="settings">Settings</button>
+						<div id="mine_display">
+							<div id="mine_icon"></div>
+							<div id="remainingMines"></div>
+						</div>	
+					</div>
+					<table id="board"></table>
+					<div id="messagebox">
+						<h2 id="message">Message</h2>
+					</div>
+				</div>
+			</div>
+ 		</div>
+
+ 		<script src="minesweeper-test.js"></script>
+	</body>
+</html>

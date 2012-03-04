@@ -1,7 +1,3 @@
-/* TODO
-* Implement game over state
-*/
-
 /*global $*/
 /*jslint browser: true, white: true, plusplus: true, maxerr: 50, indent: 4 */
 
@@ -59,7 +55,7 @@ function MinesweeperCell(board, row, col, isMine) {
 	 */
 	this.update = function () {
 		// get the display element that corresponds to this cell
-		this.cell = this.cell || $("#board tr:eq(" + this.row + ") td:eq(" + this.col + ")");
+		this.cell = this.cell || $("#board tr:eq(" + this.row + ") td:eq(" + this.col + ")",this.board.context);
 		if (this.revealed) {
 			if (this.isMine && !this.flagged) {
 				$(this.cell).addClass("mine");
@@ -87,11 +83,11 @@ function MinesweeperCell(board, row, col, isMine) {
 		}
 
 		// update the remaining mines counter
-		$("#remainingMines").text(this.board.remainingMines);
+		$("#remainingMines",this.board.context).text(this.board.remainingMines);
 	};
 }
 
-function MinesweeperBoard() {
+function MinesweeperBoard(context) {
 	'use strict';
 	// keep track of the board for when 'this' is rebound
 	var board = this,
@@ -149,24 +145,26 @@ function MinesweeperBoard() {
 			};
 		};
 	
+	this.context = context || document;
+
 	/**
 	 * Start a new game
 	 */
-	this.init = function () {
+	this.init = function (mines) {
 		var i, j, isMine;
 
 		board.locked = false;
 
-		board.numRows = $("#boardsize").val();
+		board.numRows = $("#boardsize",board.context).val();
 		board.numCols = board.numRows;
-		board.numMines = $("#numMines").val();
+		board.numMines = $("#numMines",board.context).val();
 		board.remainingMines = board.numMines;
 
 		board.cells = [];
 		board.flagmode = false;
 
 		// generate mines randomly
-		board.mines = (function () {
+		board.mines = mines || (function () {
 			var mines = {},
 				// generate a random number between 0 and rows*cols-1
 				randMax = board.numRows * board.numCols,
@@ -203,41 +201,20 @@ function MinesweeperBoard() {
 	this.draw = function () {
 		// make the board fill the screen
 		var size = Math.min(Math.floor($(window).width() / this.numCols),
-						Math.floor($(window).height() / this.numRows + 1)),
+						Math.floor(($(window).height() - $("#actions",board.context).height()) / this.numRows)),
 			i, j, row, col;
 		
 		// hide game-over message box
-		$("#messagebox").hide();
-		$("#message").empty();
+		$("#messagebox",board.context).hide();
+		$("#message",board.context).empty();
 		
-		$("#remainingMines")
-			.text(board.numMines)
-			// includes minor adjustments for margin/padding issues
-			.css({
-				"left": size + 2,
-				"top": size * -1 + 2,
-				"font-size": size - 4
-			});	
-
-		// set buttons to same size as cells
-		$("#actions button, #mine_icon, #remainingMines").css({
-			"width": size + 1,
-			"height": size
-		});
-		// the action bar should be the same height as the buttons
-		$("#actions").css({
-			"height": size
-		});
-		$("#mine_display").css({
-			"width": size * 2 + 2,
-			"height": size
-		});
+		$("#remainingMines",board.context).text(board.numMines);
 
 		// turn off flagmode
-		$("#flagmode").removeClass("on");
+		$("#flagmode",board.context).removeClass("on");
 
 		// reset the board
-		$("#board").empty();
+		$("#board",board.context).empty();
 		for (i = 0; i < this.numRows; ++i) {
 			row = document.createElement("tr");
 			for (j = 0; j < this.numCols; ++j) {
@@ -253,14 +230,14 @@ function MinesweeperBoard() {
 				// size all elements the same
 				$(col).css({
 					"width": size,
-					"height": size
+					"height": size - 2
 				});
 
 				$(row).append(col);
 			}
 			
 			// add the row of cells to the DOM
-			$("#board").append(row);
+			$("#board",board.context).append(row);
 		}
 
 	};
@@ -372,54 +349,57 @@ function MinesweeperBoard() {
 	 * Endgame, if win is true then WINNER, else GAME OVER
 	 */
 	this.gameOver = function (win) {
-		var mine_i, mine, i, j, cell;		
+		var mine, i, j, cell;		
 
 		board.locked = true;
 
 		if (win) {
-			$("#message").removeClass("bad").text("WINNER!");
+			$("#message",board.context).removeClass("bad").text("WINNER!");
 		} else {
-			$("#message").addClass("bad").text("GAME OVER!");
+			$("#message",board.context).addClass("bad").text("GAME OVER!");
 		}
 		
-		for (mine_i = 0; mine_i < this.mines.length; ++mine_i) {
-			mine = this.mines[mine_i];
-			i = Math.floor(mine / this.numRows);
-			j = mine % this.numCols;
-			cell = board.cells[i][j];
-			if (!cell.flagged) {
-				cell.revealed = true;
-				cell.update();
+		for (mine in board.mines) {
+			if(board.mines.hasOwnProperty(mine)) {
+				i = Math.floor(mine / board.numRows);
+				j = mine % board.numCols;
+				cell = board.cells[i][j];
+				if (!cell.flagged) {
+					cell.revealed = true;
+					cell.update();
+				}
 			}
 		}
-		$("#messagebox").show();
+		$("#messagebox",board.context).show();
 	};	
 }
 
 /**
  * Start the game!
  */
-(function init() {
+(function init(context) {
 	'use strict';
-	var board = new MinesweeperBoard();
+	var context = context || document,
+		board = new MinesweeperBoard(context);
 	board.init();
 
 	// button handlers
-	$("#verify").click(board.verify);
-	$("#reveal_all").click(board.revealMines);
-	$("#new_game").click(board.init);
-	$("#flagmode").click(function () {
+	$("#verify",context).click(board.verify);
+	$("#reveal_all",context).click(board.revealMines);
+	$("#new_game",context).click(board.init);
+	$("#flagmode",context).click(function () {
 		board.flagmode = !board.flagmode;
 		if (board.flagmode) {
-			$(this).addClass("on");
+			$("#flagmode",context).addClass("on");
 		} else {
-			$(this).removeClass("on");
+			$("#flagmode",context).removeClass("on");
 		}
 	});
-	$("#settings").click(function() {
-		$("#options").toggle();
+	$("#settings",context).click(function() {
+		$("#options",context).toggle('fast');
 	});
-}());
+	$("#options input, #options select",context).change(board.init);
+}(document));
 
 
 
