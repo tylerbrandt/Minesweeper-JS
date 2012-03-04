@@ -400,8 +400,28 @@ function MinesweeperBoard(context) {
 	$("#settings",context).click(function() {
 		$("#options",context).toggle('fast');
 	});
-	$("#options input, #options select",context).change(function() {
+	$("#boardsize",context).change(function() {
+		var defaultMines = {
+			"8": 10,
+			"16": 50,
+			"32": 250
+		};
+		$("#numMines")
+			.val(defaultMines[$(this).val()])
+			// more than half of the squares mines is just silly
+			.attr("max",Math.floor(Math.pow($(this).val(),2) / 2));
 		board.init();
+	});
+	$("#numMines",context).change(function() {
+		
+		var maxMines = Math.floor(Math.pow($("#boardsize").val(),2) / 2);
+		
+		if($(this).val() > maxMines) {
+			alert("Please select a number between 1 and " + maxMines);
+			$(this).val(board.numMines);
+		} else {
+			board.init();	
+		}
 	});
 }(document));
 
