@@ -29,6 +29,42 @@ td.flagged {
 	background-color: blue;
 }
 
+td.num0 {
+	background-image: url("img/0.png");
+}
+
+td.num1 {
+	background-image: url("img/1.png");
+}
+
+td.num2 {
+	background-image: url("img/2.png");
+}
+
+td.num3 {
+	background-image: url("img/3.png");
+}
+
+td.num4 {
+	background-image: url("img/4.png");
+}
+
+td.num5 {
+	background-image: url("img/5.png");
+}
+
+td.num6 {
+	background-image: url("img/6.png");
+}
+
+td.num7 {
+	background-image: url("img/7.png");
+}
+
+td.num8 {
+	background-image: url("img/8.png");
+}
+
 #flagbox {
 	/* border: 1px solid black; */
 	width: 100px;

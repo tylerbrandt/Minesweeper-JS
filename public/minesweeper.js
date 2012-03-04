@@ -66,7 +66,7 @@ function MinesweeperCell(board, row, col, isMine) {
 			} else if (!this.isMine) {
 				// for a regular cell just show the number
 				$(this.cell)
-					.css("background-image", "url(img/" + this.numAdjacent + ".png)");
+					.addClass("num" + this.numAdjacent);
 			}
 		} else {
 			if (this.isMine && !this.flagged) {
@@ -150,7 +150,7 @@ function MinesweeperBoard(context) {
 	/**
 	 * Start a new game
 	 */
-	this.init = function (mines) {
+	this.init = function (init_mines) {
 		var i, j, isMine;
 
 		board.locked = false;
@@ -164,7 +164,7 @@ function MinesweeperBoard(context) {
 		board.flagmode = false;
 
 		// generate mines randomly
-		board.mines = mines || (function () {
+		board.mines = init_mines || (function () {
 			var mines = {},
 				// generate a random number between 0 and rows*cols-1
 				randMax = board.numRows * board.numCols,
@@ -386,7 +386,9 @@ function MinesweeperBoard(context) {
 	// button handlers
 	$("#verify",context).click(board.verify);
 	$("#reveal_all",context).click(board.revealMines);
-	$("#new_game",context).click(board.init);
+	$("#new_game",context).click(function() {
+		board.init();
+	});
 	$("#flagmode",context).click(function () {
 		board.flagmode = !board.flagmode;
 		if (board.flagmode) {
@@ -398,7 +400,9 @@ function MinesweeperBoard(context) {
 	$("#settings",context).click(function() {
 		$("#options",context).toggle('fast');
 	});
-	$("#options input, #options select",context).change(board.init);
+	$("#options input, #options select",context).change(function() {
+		board.init();
+	});
 }(document));
 
 
