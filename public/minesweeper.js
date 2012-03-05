@@ -1,4 +1,4 @@
-/*global $*/
+/*global $,alert*/
 /*jslint browser: true, white: true, plusplus: true, maxerr: 50, indent: 4 */
 
 
@@ -377,9 +377,9 @@ function MinesweeperBoard(context) {
 /**
  * Start the game!
  */
-(function init(context) {
+(function init(fixture) {
 	'use strict';
-	var context = context || document,
+	var context = fixture || document,
 		board = new MinesweeperBoard(context);
 	board.init();
 
