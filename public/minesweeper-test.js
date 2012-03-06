@@ -25,6 +25,51 @@ test("An initialized board",function() {
 	ok(!board.flagmode,"should not be in flagmode");
 });
 
+
+test("A board's remainingMines",function() {
+	var board = new MinesweeperBoard("#fixture8"),cell,i = 0,j = 0;
+	board.init();
+
+	equal(board.remainingMines,10,"should start at numMines");
+
+	cell = board.cells[0][0];
+
+	cell.flag();
+	equal(board.remainingMines,9,"should decrease by 1 for a flag");
+
+	cell.flag();
+	equal(board.remainingMines,10,"should increase by 1 for an unflag");
+
+	cell.flag();
+	cell = board.cells[0][1];
+	cell.flag();
+	equal(board.remainingMines,8,"should decrease by 1 for each flag");
+
+	// reset board
+	board.init();
+	for(i = 0; i < board.numMines; ++i) {
+		// flag all the mines
+		cell = board.cells[Math.floor(i / board.numCols)][i % board.numRows];
+		cell.flag();		
+	}
+	equal(board.remainingMines,0,"should be equal to 0 when all flags are placed");
+
+	cell = board.cells[Math.floor((i+1) / board.numCols)][(i+1) % board.numRows];
+	cell.flag();
+	equal(board.remainingMines,0,"should not go lower than 0");
+
+	board = new MinesweeperBoard("#fixture16");
+	board.init();
+	equal(board.remainingMines,32,"should be equal to numMines when no flags are placed");
+
+	for(i = 0; i < board.numMines; ++i) {
+		// flag all the mines
+		cell = board.cells[Math.floor(i / board.numCols)][i % board.numRows];
+		cell.flag();		
+	}
+	equal(board.remainingMines,0,"should be equal to 0 when all flags are placed (start with 32)");
+});
+
 module("MinesweeperCell");
 
 test("A newly created cell",function() {

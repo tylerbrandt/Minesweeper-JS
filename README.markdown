@@ -11,3 +11,4 @@ TODO:
 *   Sprites for tile images
 *   More unit tests
 *   Attribution for images (all CC-BY)
+*   Bug when you have less flags than mines(!)
