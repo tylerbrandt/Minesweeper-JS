@@ -69,9 +69,11 @@ function MinesweeperCell(board, row, col, isMine) {
 				$(this.cell)
 					.addClass("num" + this.numAdjacent)
 					// subtract 2 for borders
-					.css("background-position", "0px -" + this.numAdjacent * (this.board.sizeFactor - 2) + "px");
+					.css({
+						"background-image": "url('img/sprite.png')",
+						"background-position": "0px -" + this.numAdjacent * (this.board.sizeFactor - 2) + "px"
+					});
 			}
-			$(this.cell).css("background-image", "url('img/sprite.png')");
 		} else {
 			if (this.isMine && !this.flagged) {
 				// unreveal a mine (after cheating)

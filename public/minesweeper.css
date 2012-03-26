@@ -21,6 +21,7 @@ td.mine {
 }
 
 td.mine.error {
+	
 	background-image: url("img/mine-bad.png");
 }
 
