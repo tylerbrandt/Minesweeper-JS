@@ -58,7 +58,8 @@ function MinesweeperCell(board, row, col, isMine) {
 		this.cell = this.cell || $("#board tr:eq(" + this.row + ") td:eq(" + this.col + ")",this.board.context);
 		if (this.revealed) {
 			if (this.isMine && !this.flagged) {
-				$(this.cell).addClass("mine");
+				$(this.cell)
+					.addClass("mine");
 				if (this.error) {
 					// the mine the user actually clicked on should stand out more
 					$(this.cell).addClass("error");
@@ -66,8 +67,11 @@ function MinesweeperCell(board, row, col, isMine) {
 			} else if (!this.isMine) {
 				// for a regular cell just show the number
 				$(this.cell)
-					.addClass("num" + this.numAdjacent);
+					.addClass("num" + this.numAdjacent)
+					// subtract 2 for borders
+					.css("background-position", "0px -" + this.numAdjacent * (this.board.sizeFactor - 2) + "px");
 			}
+			$(this.cell).css("background-image", "url('img/sprite.png')");
 		} else {
 			if (this.isMine && !this.flagged) {
 				// unreveal a mine (after cheating)
@@ -203,6 +207,9 @@ function MinesweeperBoard(context) {
 		var size = Math.min(Math.floor($(window).width() / this.numCols),
 						Math.floor(($(window).height() - $("#actions",board.context).height()) / this.numRows)),
 			i, j, row, col;
+
+		// save the size factor
+		board.sizeFactor = size;
 		
 		// hide game-over message box
 		$("#messagebox",board.context).hide();
@@ -230,8 +237,10 @@ function MinesweeperBoard(context) {
 				// size all elements the same
 				$(col).css({
 					"width": size,
-					"height": size - 2
+					"height": size
 				});
+
+				
 
 				$(row).append(col);
 			}
@@ -239,6 +248,9 @@ function MinesweeperBoard(context) {
 			// add the row of cells to the DOM
 			$("#board",board.context).append(row);
 		}
+		$("#board",board.context).css({
+			"width": size * board.numCols
+		});
 
 	};
 
