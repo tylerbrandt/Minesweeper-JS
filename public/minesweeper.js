@@ -69,8 +69,8 @@ function MinesweeperCell(board, row, col, isMine) {
 				$(this.cell)
 					.addClass("num" + this.numAdjacent)
 					// subtract 2 for borders
+					.addClass("revealed")
 					.css({
-						"background-image": "url('img/sprite.png')",
 						"background-position": "0px -" + this.numAdjacent * (this.board.sizeFactor - 2) + "px"
 					});
 			}
